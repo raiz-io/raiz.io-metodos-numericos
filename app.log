@@ -3358,3 +3358,74 @@ UnboundLocalError: cannot access local variable 'tolerancia' where it is not ass
 2025-05-05 03:58:40,663 - __main__ - INFO - Iniciando aplicación Flask
 2025-05-05 03:58:40,680 - werkzeug - WARNING -  * Debugger is active!
 2025-05-05 03:58:40,682 - werkzeug - INFO -  * Debugger PIN: 686-568-455
+2025-05-05 12:15:10,720 - __main__ - INFO - Historial cargado correctamente desde archivo
+2025-05-05 12:15:10,724 - __main__ - INFO - Iniciando aplicación Flask
+2025-05-05 12:15:10,805 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.23.12.230:5000
+2025-05-05 12:15:10,806 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-05 12:15:10,808 - werkzeug - INFO -  * Restarting with stat
+2025-05-05 12:15:12,192 - __main__ - INFO - Historial cargado correctamente desde archivo
+2025-05-05 12:15:12,197 - __main__ - INFO - Iniciando aplicación Flask
+2025-05-05 12:15:12,222 - werkzeug - WARNING -  * Debugger is active!
+2025-05-05 12:15:12,229 - werkzeug - INFO -  * Debugger PIN: 686-568-455
+2025-05-05 12:15:14,398 - __main__ - DEBUG - Solicitud recibida para página principal
+2025-05-05 12:15:14,584 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:15:14] "GET / HTTP/1.1" 200 -
+2025-05-05 12:15:14,778 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:15:14] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-05 12:15:14,804 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:15:14] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-05 12:15:14,818 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:15:14] "GET /static/images/koya_bt21.gif HTTP/1.1" 200 -
+2025-05-05 12:15:28,848 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:15:28] "GET /static/images/icono3.png HTTP/1.1" 200 -
+2025-05-05 12:18:28,692 - __main__ - INFO - Historial cargado correctamente desde archivo
+2025-05-05 12:18:28,697 - __main__ - INFO - Iniciando aplicación Flask
+2025-05-05 12:18:28,772 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.25.22.160:5000
+2025-05-05 12:18:28,774 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-05 12:18:28,776 - werkzeug - INFO -  * Restarting with stat
+2025-05-05 12:18:30,196 - __main__ - INFO - Historial cargado correctamente desde archivo
+2025-05-05 12:18:30,203 - __main__ - INFO - Iniciando aplicación Flask
+2025-05-05 12:18:30,232 - werkzeug - WARNING -  * Debugger is active!
+2025-05-05 12:18:30,238 - werkzeug - INFO -  * Debugger PIN: 686-568-455
+2025-05-05 12:18:31,850 - __main__ - DEBUG - Solicitud recibida para página principal
+2025-05-05 12:18:31,899 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:18:31] "GET / HTTP/1.1" 200 -
+2025-05-05 12:18:32,182 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:18:32] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-05 12:18:32,189 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:18:32] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-05 12:18:32,189 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:18:32] "GET /static/images/koya_bt21.gif HTTP/1.1" 200 -
+2025-05-05 12:18:36,677 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:18:36] "GET /static/images/icono3.png HTTP/1.1" 200 -
+2025-05-05 12:19:01,571 - __main__ - INFO - Iniciando procesamiento de solicitud /resolver
+2025-05-05 12:19:01,576 - __main__ - INFO - Datos recibidos: {'metodo': 'Bisección', 'funcion': 'x^3-x-2', 'a': 1, 'b': 3, 'tolerancia': 0.0001}
+2025-05-05 12:19:01,577 - __main__ - INFO - Ejecutando método de Bisección
+2025-05-05 12:19:01,611 - __main__ - INFO - Historial guardado correctamente
+2025-05-05 12:19:01,612 - __main__ - INFO - Cálculo completado con éxito. Raíz encontrada: 1.52142333984375
+2025-05-05 12:19:01,614 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:19:01] "POST /resolver HTTP/1.1" 200 -
+2025-05-05 12:21:18,233 - __main__ - INFO - Iniciando procesamiento de solicitud /resolver
+2025-05-05 12:21:18,235 - __main__ - INFO - Datos recibidos: {'metodo': 'Regula Falsi', 'funcion': 'x^3-x-2', 'a': 1, 'b': 3, 'tolerancia': 0.0001}
+2025-05-05 12:21:18,236 - __main__ - INFO - Ejecutando método de Regla Falsa
+2025-05-05 12:21:18,263 - __main__ - INFO - Historial guardado correctamente
+2025-05-05 12:21:18,263 - __main__ - INFO - Cálculo completado con éxito. Raíz encontrada: 1.521251648127365
+2025-05-05 12:21:18,265 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:21:18] "POST /resolver HTTP/1.1" 200 -
+2025-05-05 12:36:53,220 - __main__ - INFO - Historial cargado correctamente desde archivo
+2025-05-05 12:36:53,225 - __main__ - INFO - Iniciando aplicación Flask
+2025-05-05 12:36:53,331 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.82.57:5000
+2025-05-05 12:36:53,331 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-05 12:36:53,336 - werkzeug - INFO -  * Restarting with stat
+2025-05-05 12:36:54,944 - __main__ - INFO - Historial cargado correctamente desde archivo
+2025-05-05 12:36:54,948 - __main__ - INFO - Iniciando aplicación Flask
+2025-05-05 12:36:54,978 - werkzeug - WARNING -  * Debugger is active!
+2025-05-05 12:36:54,988 - werkzeug - INFO -  * Debugger PIN: 686-568-455
+2025-05-05 12:36:55,653 - __main__ - DEBUG - Solicitud recibida para página principal
+2025-05-05 12:36:55,692 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:36:55] "GET / HTTP/1.1" 200 -
+2025-05-05 12:36:55,926 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:36:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-05 12:36:55,952 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:36:55] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-05 12:36:55,955 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:36:55] "[36mGET /static/images/koya_bt21.gif HTTP/1.1[0m" 304 -
+2025-05-05 12:37:07,397 - __main__ - INFO - Iniciando procesamiento de solicitud /resolver
+2025-05-05 12:37:07,401 - __main__ - INFO - Datos recibidos: {'metodo': 'Bisección', 'funcion': 'x^3-x-2', 'a': 1, 'b': 3, 'tolerancia': 0.0001}
+2025-05-05 12:37:07,403 - __main__ - INFO - Ejecutando método de Bisección
+2025-05-05 12:37:07,434 - __main__ - INFO - Historial guardado correctamente
+2025-05-05 12:37:07,437 - __main__ - INFO - Cálculo completado con éxito. Raíz encontrada: 1.52142333984375
+2025-05-05 12:37:07,440 - werkzeug - INFO - 127.0.0.1 - - [05/May/2025 12:37:07] "POST /resolver HTTP/1.1" 200 -

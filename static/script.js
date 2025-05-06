@@ -1,3 +1,237 @@
+// Diccionario con información de todos los métodos
+const metodosInfo = {
+    "Bisección": {
+      titulo: "Método de Bisección",
+      descripcion: "Divide repetidamente el intervalo a la mitad hasta encontrar la raíz.",
+      algoritmo: `
+        1. Elegir a y b tal que f(a)*f(b) < 0
+        2. Calcular c = (a + b)/2
+        3. Si f(c) ≈ 0, c es la raíz
+        4. Si f(a)*f(c) < 0, nueva búsqueda en [a, c]
+        5. Sino, nueva búsqueda en [c, b]
+        6. Repetir hasta convergencia
+      `,
+      ventajas: [
+        "Siempre converge si hay cambio de signo",
+        "Fácil de implementar",
+        "Muy estable"
+      ],
+      desventajas: [
+        "Convergencia lenta (lineal)",
+        "Requiere intervalo con cambio de signo"
+      ]
+    },
+    "Regula Falsi": {
+    titulo: "Método de Regula Falsi (Falsa Posición)",
+    descripcion: "Versión mejorada de bisección que usa interpolación lineal para acelerar convergencia.",
+    algoritmo: `
+      1. Elegir a, b tal que f(a)*f(b) < 0
+      2. Calcular c = a - f(a)*(b-a)/(f(b)-f(a))
+      3. Si f(c) ≈ 0, c es la raíz
+      4. Si f(a)*f(c) < 0, nueva búsqueda en [a, c]
+      5. Sino, nueva búsqueda en [c, b]
+      6. Repetir hasta convergencia
+    `,
+    ventajas: [
+      "Converge más rápido que bisección",
+      "Mantiene garantía de convergencia",
+      "Uso eficiente de evaluaciones de función"
+    ],
+    desventajas: [
+      "Puede estancarse en un extremo",
+      "Requiere cambio de signo inicial",
+      "Convergencia no siempre uniforme"
+    ]
+    },
+    "Newton": {
+    titulo: "Método de Newton-Raphson",
+    descripcion: "Utiliza derivadas para encontrar rápidamente raíces mediante aproximaciones lineales.",
+    algoritmo: `
+      1. Elegir punto inicial x₀
+      2. Calcular f(xₙ) y f'(xₙ)
+      3. xₙ₊₁ = xₙ - f(xₙ)/f'(xₙ)
+      4. Repetir hasta que |xₙ₊₁ - xₙ| < tolerancia
+    `,
+    ventajas: [
+      "Convergencia cuadrática (rápida)",
+      "Preciso cerca de la raíz",
+      "Eficiente para funciones derivables"
+    ],
+    desventajas: [
+      "Requiere calcular la derivada",
+      "Puede divergir si el punto inicial es malo",
+      "No funciona con derivadas cero"
+    ]
+    },
+    "Secante": {
+    titulo: "Método de la Secante",
+    descripcion: "Versión sin derivadas del método de Newton, usa aproximación por diferencia.",
+    algoritmo: `
+      1. Elegir puntos iniciales x₀ y x₁
+      2. Calcular f(xₙ) y f(xₙ₋₁)
+      3. xₙ₊₁ = xₙ - f(xₙ)[(xₙ - xₙ₋₁)/(f(xₙ) - f(xₙ₋₁))]
+      4. Repetir hasta convergencia
+    `,
+    ventajas: [
+      "No requiere derivada",
+      "Más rápido que bisección",
+      "Buen compromiso velocidad-complejidad"
+    ],
+    desventajas: [
+      "Convergencia no garantizada",
+      "Puede ser inestable",
+      "Selección inicial crítica"
+    ]
+    },
+    "Gauss": {
+      titulo: "Eliminación Gaussiana",
+      descripcion: "Transforma el sistema en una matriz triangular superior mediante operaciones elementales.",
+      algoritmo: `
+        1. Formar matriz aumentada [A|B]
+        2. Aplicar eliminación hacia adelante:
+           a. Escalonar la matriz
+           b. Hacer ceros debajo de los pivotes
+        3. Resolver por sustitución regresiva
+      `,
+      ventajas: [
+        "Directo (no iterativo)",
+        "Eficiente para sistemas pequeños/medianos",
+        "Base para otros métodos"
+      ],
+      desventajas: [
+        "Inestable sin pivoteo",
+        "Costoso para sistemas grandes (O(n³))"
+      ]
+    },
+    "Gauss-Jordan": {
+      titulo: "Método de Gauss-Jordan",
+      descripcion: "Extensión de Gauss que produce una matriz identidad en lugar de triangular.",
+      algoritmo: `
+        1. Formar matriz aumentada [A|B]
+        2. Aplicar eliminación completa:
+           a. Escalonar la matriz
+           b. Hacer ceros arriba y abajo de los pivotes
+        3. Normalizar los pivotes a 1
+        4. La solución aparece en la columna aumentada
+      `,
+      ventajas: [
+        "Produce solución directamente",
+        "Útil para calcular inversas de matrices",
+        "Conceptualmente simple"
+      ],
+      desventajas: [
+        "Más operaciones que Gauss estándar",
+        "Mismo problema de estabilidad que Gauss"
+      ]
+    },
+    "Gauss-Seidel": {
+    titulo: "Método Gauss-Seidel",
+    descripcion: "Método iterativo para sistemas lineales que usa valores actualizados inmediatamente.",
+    algoritmo: `
+      1. Descomponer A = L + D + U
+      2. Elegir vector inicial x⁰
+      3. Para cada iteración k:
+         xᵢ⁽ᵏ⁺¹⁾ = (bᵢ - Σⱼ₌₁ⁱ⁻¹ aᵢⱼxⱼ⁽ᵏ⁺¹⁾ - Σⱼ₌ᵢ₊₁ⁿ aᵢⱼxⱼ⁽ᵏ⁾) / aᵢᵢ
+      4. Repetir hasta ||x⁽ᵏ⁺¹⁾ - x⁽ᵏ⁾|| < tolerancia
+    `,
+    ventajas: [
+      "Converge más rápido que Jacobi",
+      "Uso eficiente de memoria",
+      "Actualización inmediata de valores"
+    ],
+    desventajas: [
+      "Orden de ecuaciones afecta convergencia",
+      "No siempre converge",
+      "Dependencia del orden"
+    ]
+    },
+    "Jacobi": {
+    titulo: "Método de Jacobi",
+    descripcion: "Método iterativo para resolver sistemas lineales descomponiendo la matriz.",
+    algoritmo: `
+      1. Descomponer A = D + R
+      2. Elegir vector inicial x⁰
+      3. Para cada iteración k:
+         x⁽ᵏ⁺¹⁾ = D⁻¹(b - Rx⁽ᵏ⁾)
+      4. Repetir hasta convergencia
+    `,
+    ventajas: [
+      "Fácil de paralelizar",
+      "Simple de implementar",
+      "Converge para matrices diagonalmente dominantes"
+    ],
+    desventajas: [
+      "Convergencia lenta",
+      "Requiere almacenar dos vectores de solución",
+      "No siempre converge"
+    ]
+  }
+};
+
+function cerrarInfo() {
+    const panel = document.getElementById('info-metodo');
+    panel.style.animation = 'fadeOut 0.3s ease';
+    setTimeout(() => {
+      panel.style.display = 'none';
+      panel.style.animation = '';
+    }, 300);
+  }
+  
+  function seleccionarMetodo(metodo) {
+    // Cambiar el método seleccionado en el formulario
+    document.getElementById('metodo').value = metodo;
+    
+    // Mostrar información del método
+    mostrarInfoMetodo(metodo);
+    
+    // Actualizar la interfaz según el método
+    toggleElementosPorMetodo();
+  }
+  
+  function mostrarInfoMetodo(metodo) {
+    const info = metodosInfo[metodo];
+    if (!info) return;
+    
+    const panel = document.getElementById('info-metodo');
+    const titulo = document.getElementById('info-titulo');
+    const contenido = document.getElementById('info-contenido');
+    
+    titulo.textContent = info.titulo;
+    contenido.innerHTML = `
+      <p><strong>Descripción:</strong> ${info.descripcion}</p>
+      <div class="method-details">
+        <div>
+          <p><strong>Algoritmo:</strong></p>
+          <pre>${info.algoritmo}</pre>
+        </div>
+        <div>
+          <p><strong>Ventajas:</strong></p>
+          <ul>${info.ventajas.map(v => `<li>${v}</li>`).join('')}</ul>
+        </div>
+        <div>
+          <p><strong>Desventajas:</strong></p>
+          <ul>${info.desventajas.map(d => `<li>${d}</li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+    
+    panel.style.display = 'block';
+  }
+  
+  // Cambia los onclick en el sidebar (solo para mostrar info)
+  function configurarSidebar() {
+    document.querySelectorAll('.sidebar nav a').forEach(boton => {
+      const metodo = boton.querySelector('span').textContent.trim();
+      boton.onclick = (e) => {
+        e.preventDefault();
+        mostrarInfoMetodo(metodo);
+      };
+    });
+  }
+  
+  // Ejecutar al cargar la página
+  document.addEventListener('DOMContentLoaded', configurarSidebar);
+
 let chartInstanceError = null;
 let chartInstanceRaiz = null;
 let chartInstanceFX = null;
@@ -72,56 +306,86 @@ function graficarSistema2D(A, B, solucion) {
     });
 }
 
-function graficarSistema3D(A, B, solucion) {
-    const ecuaciones = [];
-    const colors = ['#1f77b4', '#ff7f0e', '#2ca02c'];  // Azul, naranja, verde
-    const range = [-5, 5];
+function graficarSistema3D(A, B, solucion = null) {
+    // Limpiar gráfico existente
+    Plotly.purge('grafico-ecuaciones');
     
+    const ecuaciones = [];
+    const colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'];
+    const range = [-10, 10];
+    const step = 0.5;
+    
+    // Generar datos para cada ecuación
     for (let i = 0; i < A.length; i++) {
         const a1 = A[i][0] || 0;
         const a2 = A[i][1] || 0;
-        const a3 = A[i][2] || 1;  // Evitar división por cero
+        const a3 = A[i][2] || 1; // Evitar división por cero
         const b = B[i];
-        const z = [];
-        for (let x = range[0]; x <= range[1]; x++) {
-            const zRow = [];
-            for (let y = range[0]; y <= range[1]; y++) {
-                zRow.push((b - a1 * x - a2 * y) / a3);
+        
+        // Generar puntos para el plano
+        const x = [], y = [], z = [];
+        for (let xi = range[0]; xi <= range[1]; xi += step) {
+            for (let yi = range[0]; yi <= range[1]; yi += step) {
+                x.push(xi);
+                y.push(yi);
+                const zi = (b - a1 * xi - a2 * yi) / a3;
+                z.push(zi);
             }
-            z.push(zRow);
         }
+        
         ecuaciones.push({
-            x: range,
-            y: range,
-            z: z,
-            type: 'surface',
+            x, y, z,
+            type: 'mesh3d',
             name: `${a1.toFixed(2)}x + ${a2.toFixed(2)}y + ${a3.toFixed(2)}z = ${b.toFixed(2)}`,
-            surfacecolor: colors[i % colors.length],  // Color único por plano
+            color: colors[i % colors.length],
             opacity: 0.8,
-            contours: { z: { show: true } }
+            flatshading: true
         });
     }
     
-    if (solucion && solucion.length === 3) {
+    // Añadir punto de solución si existe
+    if (solucion && solucion.length === 3 && 
+        !isNaN(solucion[0]) && !isNaN(solucion[1]) && !isNaN(solucion[2])) {
+        
         ecuaciones.push({
             x: [solucion[0]],
             y: [solucion[1]],
             z: [solucion[2]],
             mode: 'markers',
-            marker: { size: 5, color: 'red', symbol: 'diamond' },
+            type: 'scatter3d',
+            marker: {
+                size: 10,
+                color: 'red',
+                symbol: 'diamond'
+            },
             name: 'Solución'
         });
     }
     
-    Plotly.newPlot('grafico-ecuaciones', ecuaciones, { 
-        title: 'Sistema 3D',
-        margin: { t: 40 },
+    // Configuración del layout
+    const layout = {
+        title: 'Sistema 3D de Ecuaciones',
+        margin: { t: 40, b: 0, l: 0, r: 0 },
         scene: {
-            xaxis: { title: 'X' },
-            yaxis: { title: 'Y' },
-            zaxis: { title: 'Z' }
-        }
-    });
+            xaxis: { title: 'X', range: range },
+            yaxis: { title: 'Y', range: range },
+            zaxis: { title: 'Z', range: range },
+            camera: {
+                eye: { x: 1.5, y: 1.5, z: 0.8 }
+            }
+        },
+        hovermode: 'closest'
+    };
+    
+    // Configuración de opciones para mejor interactividad
+    const config = {
+        responsive: true,
+        scrollZoom: true,
+        displayModeBar: true
+    };
+    
+    // Crear el gráfico
+    Plotly.newPlot('grafico-ecuaciones', ecuaciones, layout, config);
 }
 
 // --- Gráficas de ejemplo estáticas ---
@@ -256,6 +520,28 @@ function detenerAnimacionesEjemplo() {
 // =====================
 
 // Traducción y preparación de funciones para JS
+function prepararFuncionParaEval(f) {
+    // Manejar la constante e (2.71828...) correctamente
+    f = f.replace(/(^|[^a-zA-Z_])e($|[^a-zA-Z_])/g, '$1Math.E$2');
+
+    // Manejar e** como Math.exp
+    f = f.replace(/e\*\*([^\s]+)/g, 'Math.exp($1)');
+
+    // Reemplazar ^ por ** para potencias
+    f = f.replace(/\^/g, '**');
+
+    // Reemplazar funciones matemáticas por Math.*
+    f = f.replace(/\b(sin|cos|tan|log|exp|sqrt|abs)\b/g, 'Math.$1');
+
+    // Insertar multiplicaciones implícitas
+    f = f.replace(/(\d)([a-zA-Z\(])/g, '$1*$2')
+         .replace(/([a-zA-Z\)])(\d)/g, '$1*$2')
+         //.replace(/([a-zA-Z])\(/g, '$1*(')
+         .replace(/\)([a-zA-Z])/g, ')*$1');
+
+    return f;
+}
+
 function traducirFuncionesEspanol(funcion) {
     return funcion
         .replace(/\bsen\b/g, 'sin')
@@ -263,15 +549,24 @@ function traducirFuncionesEspanol(funcion) {
         .replace(/\bln\b/g, 'log');
 }
 
-function prepararFuncionParaEval(f) {
-    f = traducirFuncionesEspanol(f);
-    f = f.replace(/\^/g, '**');
-    f = f.replace(/(\d)([a-zA-Z\(])/g, '$1*$2')
-         .replace(/([a-zA-Z\)])(\d)/g, '$1*$2')
-         .replace(/([a-zA-Z])\(/g, '$1*(')
-         .replace(/\)([a-zA-Z])/g, ')*$1');
-    return f;
+function safeEvalFunction(fx) {
+    // Preparar la función para evaluación
+    const preparedFx = prepararFuncionParaEval(fx);
+    
+    return function(x) {
+        try {
+            // Reemplazar x por el valor numérico
+            const expr = preparedFx.replace(/x/g, `(${x})`);
+            
+            // Evaluar de forma segura usando Function
+            return (new Function('return ' + expr))();
+        } catch (e) {
+            console.warn(`Error al evaluar f(${x}): ${e}`);
+            return NaN;
+        }
+    };
 }
+
 
 // =====================
 // Mostrar/ocultar campos según el método seleccionado
@@ -284,10 +579,11 @@ function toggleElementosPorMetodo() {
     const esGaussJordan = (metodo === 'Gauss-Jordan');
     const esGaussSeidel = (metodo === 'Gauss-Seidel');
     const esMetodoMatricial = esGauss || esGaussJordan || esGaussSeidel || esJacobi;
+    const esMetodoDirecto = esGauss || esGaussJordan;
 
     // Mostrar/ocultar campos de entrada
-    document.getElementById('grupo-tol').style.display = (esGauss || esGaussJordan) ? 'none' : 'block';
-    document.getElementById('tolerancia').style.display = (esGauss || esGaussJordan) ? 'none' : 'block';
+    document.getElementById('grupo-tol').style.display = esMetodoDirecto ? 'none' : 'block';
+    document.getElementById('tolerancia').style.display = esMetodoDirecto ? 'none' : 'block';
     document.getElementById('jacobi-sistema').style.display = esMetodoMatricial ? 'block' : 'none';
     document.getElementById('jacobi-vector').style.display = (esGaussSeidel || esJacobi) ? 'block' : 'none';
     document.getElementById('grupo-funcion').style.display = esMetodoMatricial ? 'none' : 'block';
@@ -304,7 +600,6 @@ function toggleElementosPorMetodo() {
     }
 
     // Ocultar gráficos de error y aproximación para métodos directos
-    const esMetodoDirecto = (esGauss || esGaussJordan);
     document.getElementById('grafico-error').closest('.card').style.display = esMetodoDirecto ? 'none' : 'block';
     document.getElementById('grafico-raiz').closest('.card').style.display = esMetodoDirecto ? 'none' : 'block';
 }
@@ -433,99 +728,185 @@ async function enviarDatosAlServidor(datos) {
 // Graficar f(x), aproximaciones y raíz encontrada
 // =====================
 function graficarFuncionFX(funcionStr, a, b, aproximaciones = [], raiz = null) {
-    funcionStr = prepararFuncionParaEval(funcionStr);
-
     const ctx = document.getElementById('grafico-fx').getContext('2d');
-    const N = 200;
-    const xs = [];
-    const ys = [];
 
-    function safeEval(fx, x) {
-        try {
-            fx = fx.replace(/cos/g, 'Math.cos')
-                   .replace(/sin/g, 'Math.sin')
-                   .replace(/tan/g, 'Math.tan')
-                   .replace(/log/g, 'Math.log')
-                   .replace(/sqrt/g, 'Math.sqrt')
-                   .replace(/exp/g, 'Math.exp')
-                   .replace(/abs/g, 'Math.abs')
-                   .replace(/pi/g, 'Math.PI')
-                   .replace(/e/g, 'Math.E');
-            // eslint-disable-next-line no-eval
-            return eval(fx.replace(/x/g, `(${x})`));
-        } catch (e) {
-            return NaN;
-        }
-    }
-
-    for (let i = 0; i <= N; i++) {
-        const x = a + (b - a) * i / N;
-        let y = safeEval(funcionStr, x);
-        if (!isFinite(y) || Math.abs(y) > 1e6) y = null;
-        xs.push(x);
-        ys.push(y);
-    }
-
-    // Puntos de aproximación (iteraciones)
-    const puntos = (aproximaciones || []).map(xp => ({
-        x: xp,
-        y: safeEval(funcionStr, xp)
-    }));
-
-    // Punto de la raíz encontrada (¡y correcto!)
-    let puntoRaiz = [];
-    if (raiz !== null && !Array.isArray(raiz) && !isNaN(raiz)) {
-        puntoRaiz = [{
-            x: raiz,
-            y: safeEval(funcionStr, raiz)
-        }];
-    }
-
+    // Destruir gráfico anterior si existe
     if (window.chartInstanceFX) {
         window.chartInstanceFX.destroy();
     }
 
+    // Crear función evaluable segura
+    const f = safeEvalFunction(funcionStr);
+
+    // Determinar rango de graficación (más inteligente)
+    let inicio = Math.min(a, b);
+    let fin = Math.max(a, b);
+    const rangoOriginal = fin - inicio;
+    
+    // Ajustar el rango si tenemos una raíz
+    if (raiz !== null && !isNaN(raiz)) {
+        inicio = Math.min(inicio, raiz - rangoOriginal/2);
+        fin = Math.max(fin, raiz + rangoOriginal/2);
+    }
+    
+    // Rango mínimo por defecto
+    if (fin - inicio < 0.5) {
+        const centro = (inicio + fin) / 2;
+        inicio = centro - 2.5;
+        fin = centro + 2.5;
+    }
+
+    // Generar puntos para el gráfico (formato {x, y})
+    const N = 300; // Más puntos para curva más suave
+    const puntosFuncion = [];
+    const puntosRaiz = [];
+    
+    for (let i = 0; i <= N; i++) {
+        const x = inicio + (fin - inicio) * i / N;
+        const y = f(x);
+        if (isFinite(y)) {
+            puntosFuncion.push({x, y});
+        }
+    }
+
+    // Punto para la raíz si existe
+    if (raiz !== null && !isNaN(raiz)) {
+        const yRaiz = f(raiz);
+        puntosRaiz.push({
+            x: raiz,
+            y: isFinite(yRaiz) ? yRaiz : 0
+        });
+    }
+
+    // Configurar el gráfico con estilo profesional
     window.chartInstanceFX = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: xs,
             datasets: [
                 {
-                    label: 'f(x)',
-                    data: ys,
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    fill: false,
+                    label: 'Función f(x)',
+                    data: puntosFuncion,
+                    borderColor: '#3a86ff', // Azul moderno
+                    backgroundColor: 'rgba(58, 134, 255, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
                     pointRadius: 0,
-                    tension: 0.1
-                },
-                {
-                    label: 'Aproximaciones',
-                    data: puntos,
-                    showLine: false,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 1)',
-                    pointRadius: 5,
-                    type: 'scatter'
+                    tension: 0.2, // Curva más suave
+                    borderCapStyle: 'round',
+                    borderJoinStyle: 'round'
                 },
                 {
                     label: 'Raíz encontrada',
-                    data: puntoRaiz,
-                    showLine: false,
-                    borderColor: 'rgba(0, 200, 0, 1)',
-                    backgroundColor: 'rgba(0, 200, 0, 1)',
+                    data: puntosRaiz,
+                    backgroundColor: '#ff006e', // Rosa vibrante
+                    borderColor: '#ff006e',
                     pointRadius: 8,
+                    pointHoverRadius: 10,
+                    pointStyle: 'circle',
                     type: 'scatter'
                 }
             ]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
+            animation: {
+                duration: 1000 // Animación suave
+            },
+            layout: {
+                padding: {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20
+                }
+            },
             scales: {
                 x: {
-                    title: { display: true, text: 'x' }
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        display: true,
+                        text: 'Eje x',
+                        font: {
+                            family: 'Arial',
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        color: '#333'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)',
+                        lineWidth: 1
+                    },
+                    ticks: {
+                        font: {
+                            family: 'Arial',
+                            size: 12
+                        }
+                    }
                 },
                 y: {
-                    title: { display: true, text: 'f(x)' }
+                    title: {
+                        display: true,
+                        text: 'f(x)',
+                        font: {
+                            family: 'Arial',
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        color: '#333'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)',
+                        lineWidth: 1
+                    },
+                    ticks: {
+                        font: {
+                            family: 'Arial',
+                            size: 12
+                        },
+                        callback: function(value) {
+                            if (value >= 1000 || value <= -1000) {
+                                return value.toExponential(2);
+                            }
+                            return value;
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            family: 'Arial',
+                            size: 12,
+                            weight: 'bold'
+                        },
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        family: 'Arial',
+                        size: 14,
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        family: 'Arial',
+                        size: 12
+                    },
+                    callbacks: {
+                        label: function(context) {
+                            if (context.datasetIndex === 1) {
+                                return `Raíz: ${context.parsed.x.toFixed(6)}`;
+                            }
+                            return `f(${context.parsed.x.toFixed(2)}) = ${context.parsed.y.toFixed(6)}`;
+                        }
+                    }
                 }
             }
         }
@@ -542,7 +923,7 @@ document.getElementById('form-metodo').addEventListener('submit', async function
         validarEntrada(datos);
 
         let resultado = await enviarDatosAlServidor(datos);
-        console.log("Resultado recibido:", resultado);
+        console.log("Resultado recibido:", JSON.stringify(resultado, null, 2));
 
         detenerAnimacionesEjemplo();
         
@@ -691,21 +1072,58 @@ function agregarAlHistorial(datos, raiz) {
 // =====================
 // Exportar gráfica (placeholder)
 function exportarGrafica(id) {
-    if (id === 'grafico-ecuaciones') {
-        Plotly.downloadImage(id, {
-            format: 'png',
-            filename: 'sistema-ecuaciones',
-            width: 800,
-            height: 600
-        });
-    } else {
-        // Lógica existente para Chart.js
+    try {
+        // Para gráficos de Plotly (sistema de ecuaciones)
+        if (id === 'grafico-ecuaciones') {
+            Plotly.downloadImage(id, {
+                format: 'png',
+                filename: 'sistema-ecuaciones',
+                width: 800,
+                height: 600
+            });
+            return;
+        }
+
+        // Para gráficos de Chart.js
         const canvas = document.getElementById(id);
-        const url = canvas.toDataURL('image/png');
+        
+        // Verificar si el canvas existe
+        if (!canvas) {
+            throw new Error(`No se encontró el elemento con ID: ${id}`);
+        }
+
+        // Crear un canvas temporal para mejor calidad
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // Configurar tamaño
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        
+        // Fondo blanco
+        tempCtx.fillStyle = 'white';
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+        
+        // Dibujar el gráfico
+        tempCtx.drawImage(canvas, 0, 0);
+
+        // Crear enlace de descarga
         const link = document.createElement('a');
-        link.download = `${id}.png`;
-        link.href = url;
+        link.download = `grafico-${id.split('-')[1]}.png`; // Ej: grafico-fx.png
+        link.href = tempCanvas.toDataURL('image/png');
+        
+        // Descargar
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
+
+    } catch (error) {
+        console.error('Error al exportar:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al exportar',
+            text: 'No se pudo generar la imagen del gráfico. Asegúrate de haber generado un gráfico primero.'
+        });
     }
 }
 
@@ -927,12 +1345,19 @@ function graficarRaizAproximada(iteraciones) {
     });
 }
 
-// =====================
-// Exportar CSV (placeholder)
-function exportToCSV() {
-    alert("Función de exportación a CSV será implementada aquí");
-}
-
+function exportTableToPNG() {
+    const tabla = document.getElementById('tabla-iteraciones');
+    const wasDark = document.documentElement.classList.contains('dark-mode');
+    if (wasDark) document.documentElement.classList.remove('dark-mode');
+    html2canvas(tabla).then(function(canvas) {
+      const link = document.createElement('a');
+      link.download = 'tabla_iteraciones.png';
+      link.href = canvas.toDataURL();
+      link.click();
+      if (wasDark) document.documentElement.classList.add('dark-mode');
+    });
+  }
+  
 // =====================
 // Limpiar historial
 function clearHistory() {

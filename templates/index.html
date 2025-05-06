@@ -14,6 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <style>
     .animate-hover {
       transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s;
@@ -199,7 +200,7 @@
     <aside class="sidebar animate__animated animate__fadeInLeft">
       <h2>🧮 Raiz.IO</h2>
       <nav>
-        <a href="#" onclick="seleccionarMetodo('Bisección')" class="active animate-hover">
+        <a href="#" onclick="seleccionarMetodo('Bisección')" class="animate-hover">
           <span>Bisección</span>
           <span class="method-icon"><i class="fas fa-divide"></i></span>
         </a>
@@ -214,6 +215,14 @@
         <a href="#" onclick="seleccionarMetodo('Secante')" class="animate-hover">
           <span>Secante</span>
           <span class="method-icon"><i class="fas fa-exchange-alt"></i></span>
+        </a>
+        <a href="#" onclick="seleccionarMetodo('Gauss')" class="animate-hover">
+          <span>Gauss</span>
+          <span class="method-icon"><i class="fas fa-th"></i></span>
+        </a>
+        <a href="#" onclick="seleccionarMetodo('Gauss-Jordan')" class="animate-hover">
+          <span>Gauss-Jordan</span>
+          <span class="method-icon"><i class="fas fa-th-large"></i></span>
         </a>
         <a href="#" onclick="seleccionarMetodo('Gauss-Seidel')" class="animate-hover">
           <span>Gauss-Seidel</span>
@@ -236,6 +245,21 @@
         </div>
         <p>¿Qué método vamos a calcular hoy?</p>
       </header>
+
+      <!-- Nuevo panel de información (arriba de parámetros) -->
+      <section class="info-metodo animate__animated animate__fadeInDown" id="info-metodo" style="display: none;">
+        <div class="card animate-hover">
+          <div class="info-header">
+            <h2 id="info-titulo">Método</h2>
+            <button class="close-btn animate-hover" onclick="cerrarInfo()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="info-content" id="info-contenido">
+            <!-- Contenido dinámico -->
+          </div>
+        </div>
+      </section>
 
       <!-- FORMULARIO PRIMERO -->
       <section class="formulario animate__animated animate__fadeInDown">
@@ -323,19 +347,27 @@
         <div class="card graph-card animate-hover animate__animated animate__fadeInUp">
           <div class="graph-header">
             <h3>Gráfica de la función f(x)</h3>
+            <button onclick="exportarGrafica('grafico-fx')" class="export-btn animate-hover">
+              <i class="fas fa-download"></i> Guardar gráfico
+            </button>
           </div>
           <canvas id="grafico-fx" width="400" height="200"></canvas>
         </div>
         <div class="card graph-card animate-hover animate__animated animate__fadeInUp">
           <div class="graph-header">
             <h3>Gráfico de convergencia (Error)</h3>
-            <button onclick="exportarGrafica()" class="export-btn animate-hover"><i class="fas fa-download"></i> Guardar gráfico</button>
+            <button onclick="exportarGrafica('grafico-error')" class="export-btn animate-hover">
+              <i class="fas fa-download"></i> Guardar gráfico
+            </button>
           </div>
           <canvas id="grafico-error" width="400" height="200"></canvas>
         </div>
         <div class="card graph-card animate-hover animate__animated animate__fadeInUp">
           <div class="graph-header">
             <h3>Gráfico de aproximación de raíz</h3>
+            <button onclick="exportarGrafica('grafico-raiz')" class="export-btn animate-hover">
+              <i class="fas fa-download"></i> Guardar gráfico
+            </button>
           </div>
           <canvas id="grafico-raiz" width="400" height="200"></canvas>
         </div>
@@ -350,11 +382,14 @@
       </div>
       </section>
 
-      <!-- Sección para mostrar las iteraciones -->
       <section class="iteraciones animate__animated animate__fadeInUp" id="seccion-iteraciones" style="display: none;">
         <div class="section-header">
-          <h2>Detalle de iteraciones</h2>
-          <button class="export-btn animate-hover" onclick="exportToCSV()"><i class="fas fa-file-csv"></i> Exportar CSV</button>
+          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <h2>Detalle de iteraciones</h2>
+            <button class="export-btn animate-hover" onclick="exportTableToPNG()">
+              <i class="fas fa-download"></i> Guardar tabla
+            </button>
+          </div>
         </div>
         <div class="table-container">
           <table id="tabla-iteraciones">
@@ -371,6 +406,8 @@
           </table>
         </div>
       </section>
+      
+      
 
       <!-- Sección de historial -->
       <section class="historial animate__animated animate__fadeInUp">
@@ -385,8 +422,23 @@
 
   <div id="loader" class="loader"></div>
   <footer class="main-footer">
-    <span>Desarrollado por Tu Nombre &copy; 2024</span>
+    <span>Desarrollado por Raiz.IO &copy; 2025</span>
   </footer>
+
+      <!-- ===== PANEL DE INFORMACIÓN DE MÉTODOS ===== -->
+      <section class="info-metodo animate__animated animate__fadeInUp" id="info-metodo" style="display: none;">
+        <div class="card animate-hover">
+          <div class="info-header">
+            <h2 id="info-titulo">Método</h2>
+            <button class="close-btn animate-hover" onclick="cerrarInfo()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="info-content" id="info-contenido">
+            <!-- Contenido se llenará dinámicamente con JavaScript -->
+          </div>
+        </div>
+      </section>
 
   <!-- Scripts -->
   <script>

@@ -92,7 +92,10 @@ def evaluar_funcion_segura(funcion_str, x):
         '^': lambda a, b: a ** b  # Para soportar el símbolo ^ como potencia
     }
     try:
+        # Reemplazar ^ por ** para potencias
         funcion_str = funcion_str.replace('^', '**')
+        
+        # Parsear la función usando AST
         node = ast.parse(funcion_str, mode='eval')
         for n in ast.walk(node):
             if isinstance(n, (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant, ast.Name)):
@@ -105,13 +108,14 @@ def evaluar_funcion_segura(funcion_str, x):
                 continue
             else:
                 raise ValueError(f"Operación no permitida: {type(n).__name__}")
+        
+        # Evaluar la función de forma segura
         code = compile(node, '<string>', 'eval')
         return eval(code, {'__builtins__': None}, operaciones_permitidas)
     except SyntaxError:
         raise ValueError("Sintaxis de función inválida. Use formato como 'x+2' o '3*x^2'")
     except Exception as e:
         raise ValueError(f"Error al evaluar la función: {str(e)}")
-
 # Versión con caché para mejorar rendimiento
 @lru_cache(maxsize=100)
 def evaluar_funcion_cacheada(funcion_str, x):
